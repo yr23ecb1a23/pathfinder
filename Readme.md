@@ -20,12 +20,14 @@ Then follow the instructions for the first time setup
 2. `cd build`
 3. `cmake ..`
 4. `make`
-5. `python main.py` or `python3 main.py`
+5. `cd ..`
+6. `python main.py` or `python3 main.py`
 
 If you are editing the cpp_src, or the main.cpp, make sure your changes reflect in the CmakeLists.txt too. And to test them make sure you compile to test them
 1. `cd build`
 2. `cmake ..`
 3. `make`
+4. `cd ..`
 And then run the main.py
 
 If you are editing the python files, you need not do any of this, just run the main.py file again.
