@@ -13,7 +13,7 @@ To run this code on your machine
 
 first copy this code to your machine using
 
-`git clone https://github.com/devyk100/pathfinder.git` or `git clone git@github.com:devyk100/pathfinder.git`
+`git clone https://github.com/yr23ecb1a23/pathfinder.git` or `git clone git@github.com:yr23ecb1a23/pathfinder.git`
 
 Then follow the instructions for the first time setup
 1. `mkdir build`
