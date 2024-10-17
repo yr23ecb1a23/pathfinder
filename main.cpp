@@ -1,16 +1,8 @@
 #include <iostream>
 #include <pybind11/pybind11.h>
-
+#include "cpp_src/MapInterfacer.h"
 
 namespace py = pybind11;
-
-
-class trial {
-    public:
-    trial(){
-        std::cout << "Trial of the classes;";
-    }
-};
 
 
 void something() {
