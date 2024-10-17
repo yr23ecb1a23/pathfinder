@@ -4,10 +4,19 @@
 
 #include "MapInterfacer.h"
 #include <iostream>
+#include <memory>
 
 namespace pathfinder {
-    MapInterfacer::MapInterfacer() {
-        std::cout << "Initialised the Map interface class";
+    /**
+     * 
+     * @param n the number of rows inside of this map, meaning the length of the map
+     * @param m the number of columns inside of this map, the width of this map
+     */
+    MapInterfacer::MapInterfacer(ll n, ll m):length(m), width(n) {
+        map = new int_fast8_t*[n];
+        for(int i = 0; i < n; i++) {
+            map[i] = new int_fast8_t[m];
+        }
     }
 
     MapInterfacer::~MapInterfacer() {

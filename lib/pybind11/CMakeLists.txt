@@ -207,7 +207,9 @@ endif()
 if(NOT TARGET pybind11_headers)
   # Build the headers-only target (no Python included):
   # (long name used here to keep this from clashing in subdirectory mode)
-  add_library(pybind11_headers INTERFACE)
+  add_library(pybind11_headers INTERFACE
+          ../../cpp_src/MapInterfacer.cpp
+          ../../cpp_src/MapInterfacer.h)
   add_library(pybind11::pybind11_headers ALIAS pybind11_headers) # to match exported target
   add_library(pybind11::headers ALIAS pybind11_headers) # easier to use/remember
 
