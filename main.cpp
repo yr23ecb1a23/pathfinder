@@ -4,6 +4,15 @@
 
 namespace py = pybind11;
 
+
+class trial {
+    public:
+    trial(){
+        std::cout << "Trial of the classes;";
+    }
+};
+
+
 void something() {
     std::cout << "HEllo world something\n" << std::endl;
     // return;
