@@ -58,7 +58,8 @@ set_property(
   PROPERTY INTERFACE_LINK_LIBRARIES pybind11::headers)
 
 # Build a module target:
-add_library(pybind11::module IMPORTED INTERFACE ${optional_global})
+add_library(pybind11::module IMPORTED INTERFACE ${optional_global}
+        ../../../cpp_src/MapData.h)
 set_property(
   TARGET pybind11::module
   APPEND

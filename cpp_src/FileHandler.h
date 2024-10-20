@@ -9,21 +9,24 @@
 #include <iostream>
 #include <vector>
 
-namespace pathfinder {
+#include "MapData.h"
+#include <variant>
 
-class FileHandler {
-private:
-    static std::ofstream* outputFile;
-    bool isOpen = false;
-    std::string filename;
-public:
-    FileHandler(std::string filename);
-    bool openFile();
-    static inline std::ofstream* getOfstream();
-    static inline bool write(long long num);
-    static inline bool write(int_fast8_t num);
-    static inline bool write(std::vector<int_fast8_t> arr);
-};
+namespace pathfinder {
+    enum mode_t {
+        read, write
+    };
+    class FileHandler {
+    private:
+        std::variant<std::ofstream, std::ifstream> file;
+        bool isOpen = false;
+        mode_t mode;
+        std::string filename;
+    public:
+        FileHandler(std::string filename, mode_t mode);
+        MapData getMapData();
+        bool writeMapData(MapData &mapData);
+    };
 
 } // pathfinder
 

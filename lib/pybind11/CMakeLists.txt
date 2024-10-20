@@ -210,7 +210,12 @@ if(NOT TARGET pybind11_headers)
   add_library(pybind11_headers INTERFACE
           ../../cpp_src/MapInterfacer.cpp
           ../../cpp_src/MapInterfacer.h
-          ../../cpp_src/FileHandler.h)
+          ../../cpp_src/FileHandler.h
+          ../../cpp_src/MapData.h
+          ../../cpp_src/MapData.h
+          ../../cpp_src/MapData.h
+          ../../cpp_src/FileHandler.cpp
+          ../../cpp_src/FileHandler.cpp)
   add_library(pybind11::pybind11_headers ALIAS pybind11_headers) # to match exported target
   add_library(pybind11::headers ALIAS pybind11_headers) # easier to use/remember
 
