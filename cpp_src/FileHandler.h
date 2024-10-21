@@ -10,15 +10,12 @@
 #include <vector>
 
 #include "MapData.h"
-#include <variant>
-
 namespace pathfinder {
     enum mode_t {
         read, write
     };
     class FileHandler {
     private:
-        std::variant<std::ofstream, std::ifstream> file;
         bool isOpen = false;
         mode_t mode;
         std::string filename;
