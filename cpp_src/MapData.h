@@ -24,7 +24,7 @@ public:
     }
     // EXPOSING THE STL VECTOR TO PYTHON LIST
     std::vector<int_fast8_t> getMapAsVector() const;
-    inline void setValueInMap(int index, int_fast8_t val);
+    void setValueInMap(int index, int_fast8_t val);
 };
 }
 
