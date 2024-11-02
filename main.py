@@ -18,7 +18,7 @@ is_on = True
 
 def staller():
     global is_on
-    sleep(1)
+    sleep(0.8)
     is_on = False
 
 rightMotor = motor.Motor(24, 23, 25, 100, 0)  # left motor
@@ -39,12 +39,12 @@ number_thread.start()
 while is_on:
     if state.getAngleDegrees() > 1:
         print("burst left")
-        leftMotor.set_motor_speed(100)
+        leftMotor.set_motor_speed(80)
         rightMotor.set_motor_speed(50)
     elif state.getAngleDegrees() < -1:
         print("burst right")
         leftMotor.set_motor_speed(50)
-        rightMotor.set_motor_speed(100)
+        rightMotor.set_motor_speed(80)
     else:
         rightMotor.set_motor_speed(50)
         leftMotor.set_motor_speed(50)
