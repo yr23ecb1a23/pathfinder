@@ -1,6 +1,7 @@
 from src import test, robot_state, motor
 import os
 import sys
+import threading
 from time import sleep
 
 module_path = os.path.abspath("./build")
@@ -13,6 +14,12 @@ if module_path not in sys.path:
 
 #print(cpp_addFloat(102,123))
 
+is_on = True
+
+def staller():
+    sleep(2)
+    is_on = False
+
 rightMotor = motor.Motor(24, 23, 25, 100, 0)  # left motor
 leftMotor = motor.Motor(17, 27, 22, 100, 0)
 state = robot_state.RobotState()
@@ -24,8 +31,11 @@ leftMotor.set_motor_speed(50)
 # for i in range(10):
 #     print(state.getAngleDegrees())
 #     sleep(0.34)
+number_thread = threading.Thread(target=staller)
 
-while True:
+number_thread.start()
+
+while is_on:
     if(state.getAngleDegrees() > 1):
         print("burst left")
         leftMotor.set_motor_speed(100)
@@ -37,6 +47,8 @@ while True:
     else:
         rightMotor.set_motor_speed(50)
         leftMotor.set_motor_speed(50)
+
+number_thread.join()
 sleep(20)
 rightMotor.stop_motor()
 leftMotor.stop_motor()
