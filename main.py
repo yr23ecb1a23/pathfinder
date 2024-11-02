@@ -21,7 +21,7 @@ def staller():
     global is_on
     is_on = True
     print("inside")
-    sleep(0.6)
+    sleep(1.6)
     is_on = False
 
 
