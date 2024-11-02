@@ -17,13 +17,19 @@ rightMotor = motor.Motor(24, 23, 25, 100, 0)  # left motor
 leftMotor = motor.Motor(17, 27, 22, 100, 0)
 
 rightMotor.move_forward()
-rightMotor.set_motor_speed(50)
+rightMotor.set_motor_speed(30)
 leftMotor.move_forward()
-leftMotor.set_motor_speed(100)
+leftMotor.set_motor_speed(30)
 state = robot_state.RobotState()
 # for i in range(10):
 #     print(state.getAngleDegrees())
 #     sleep(0.34)
+
+while True:
+    if(state.getAngleDegrees() > 1):
+        print("burst left")
+    if(state.getAngleDegrees() < -1):
+        print("burst right")
 
 sleep(20)
 rightMotor.stop_motor()
