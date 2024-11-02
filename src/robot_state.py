@@ -64,7 +64,7 @@ class RobotState:
         while self._runningState:
             current_time = time.time()
             elapsedTime = current_time - previous_time
-            AccX, AccZ, AccY = self.mpu.acceleration
+            AccX, AccY, AccZ = self.mpu.acceleration
             GyroX, GyroY, GyroZ = self.mpu.gyro
             GyroX -= self.GyroErrorX
             GyroY -= self.GyroErrorY
