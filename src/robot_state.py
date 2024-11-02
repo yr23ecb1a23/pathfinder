@@ -11,7 +11,7 @@ import math
 
 
 
-def calculateError():
+def calculateError(mpu):
     c = 0
     AccErrorX = 0
     AccErrorY = 0
@@ -43,7 +43,7 @@ class RobotState:
     def __init__(self):
         i2c = busio.I2C(board.SCL, board.SDA)
         self.mpu = adafruit_mpu6050.MPU6050(i2c)
-        self.AccErrorX, self.AccErrorY, self.GyroErrorX, self.GyroErrorY, self.GyroErrorZ = calculateError()
+        self.AccErrorX, self.AccErrorY, self.GyroErrorX, self.GyroErrorY, self.GyroErrorZ = calculateError(self.mpu)
         self._runningState = True
         self._angle = 0
         self._distance = 0
