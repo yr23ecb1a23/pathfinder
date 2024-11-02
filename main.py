@@ -30,10 +30,11 @@ while True:
         print("burst left")
         leftMotor.set_motor_speed(100)
         rightMotor.set_motor_speed(50)
-    elif(state.getAngleDegrees() < -1):
+    elif(state.getAngleDegrees() < -1
+    ):
         print("burst right")
         leftMotor.set_motor_speed(50)
-        rightMotor.set_motor_speed(100)
+        rightMotor.set_motor_speed(80)
     else:
         rightMotor.set_motor_speed(50)
         leftMotor.set_motor_speed(50)
