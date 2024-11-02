@@ -14,9 +14,9 @@ if module_path not in sys.path:
 #print(cpp_addFloat(102,123))
 
 state = robot_state.RobotState()
-for i in range(10):
-    print(state.getAngleDegrees())
-    sleep(0.34)
+# for i in range(10):
+#     print(state.getAngleDegrees())
+#     sleep(0.34)
 
 sleep(20)
 state.destroy()
