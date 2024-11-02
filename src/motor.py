@@ -11,8 +11,8 @@ class Motor:
         GPIO.setup(self.enable, GPIO.OUT)
         GPIO.output(self.inlet1, GPIO.LOW)
         GPIO.output(self.inlet2, GPIO.LOW)
-        self.pwm = GPIO.PWM(self.enable, self.digital_frequency)
-        self.pwm.start(25 + speed_offset)
+        #self.pwm = GPIO.PWM(self.enable, self.digital_frequency)
+        #self.pwm.start(25 + speed_offset)
 
     def stop_motor(self):
         GPIO.output(self.inlet1, GPIO.LOW)
@@ -27,7 +27,7 @@ class Motor:
         GPIO.output(self.inlet2, GPIO.HIGH)
 
     def set_motor_speed(self, speed):
-        self.pwm.ChangeDutyCycle(speed + self.speed_offset)
+        #self.pwm.ChangeDutyCycle(speed + self.speed_offset)
         return True
 
 
