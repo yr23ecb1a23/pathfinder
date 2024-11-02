@@ -47,12 +47,12 @@ while inp:
         print(angle)
         if angle > 0.17:
             #print("burst left")
-            leftMotor.set_motor_speed(100)
-            rightMotor.set_motor_speed(50)
+            leftMotor.set_motor_speed(100-40)
+            rightMotor.set_motor_speed(50-40)
         elif angle < -0.17:
             #print("burst right")
-            leftMotor.set_motor_speed(50)
-            rightMotor.set_motor_speed(100)
+            leftMotor.set_motor_speed(50-40)
+            rightMotor.set_motor_speed(100-40)
         else:
             rightMotor.set_motor_speed(50)
             leftMotor.set_motor_speed(50)
