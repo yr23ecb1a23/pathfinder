@@ -70,7 +70,8 @@ class RobotState:
             yaw += GyroY * elapsedTime
             roll = 0.96 * gyroAngleZ + 0.04 * accAngleZ
             pitch = 0.96 * gyroAngleX + 0.04 * accAngleX
-            self._angle = roll
+            with self._lock:
+                self._angle = roll
             # print(self._angle * 180 / math.pi, (pitch * 180) / math.pi, "running with full speed")
             previous_time = current_time
 
@@ -80,4 +81,5 @@ class RobotState:
         GPIO.cleanup()
 
     def getAngle(self):
-        return self._angle
+        with self._lock:
+            return self._angle
