@@ -32,24 +32,29 @@ leftMotor.set_motor_speed(50)
 # for i in range(10):
 #     print(state.getAngleDegrees())
 #     sleep(0.34)
-number_thread = threading.Thread(target=staller)
-
-number_thread.start()
-
-while is_on:
-    if state.getAngleDegrees() > 0.2:
-        print("burst left")
-        leftMotor.set_motor_speed(90)
-        rightMotor.set_motor_speed(50)
-    elif state.getAngleDegrees() < -0.2:
-        print("burst right")
-        leftMotor.set_motor_speed(50)
-        rightMotor.set_motor_speed(90)
+inp = True
+while inp:
+    number_thread = threading.Thread(target=staller)
+    is_on = True
+    number_thread.start()
+    while is_on:
+        if state.getAngleDegrees() > 0.2:
+            print("burst left")
+            leftMotor.set_motor_speed(90)
+            rightMotor.set_motor_speed(50)
+        elif state.getAngleDegrees() < -0.2:
+            print("burst right")
+            leftMotor.set_motor_speed(50)
+            rightMotor.set_motor_speed(90)
+        else:
+            rightMotor.set_motor_speed(50)
+            leftMotor.set_motor_speed(50)
+    number_thread.join()
+    rightMotor.stop_motor()
+    leftMotor.stop_motor()
+    a = int(input())
+    if a == 1:
+        pass
     else:
-        rightMotor.set_motor_speed(50)
-        leftMotor.set_motor_speed(50)
-
-number_thread.join()
-rightMotor.stop_motor()
-leftMotor.stop_motor()
+        inp = False
 state.destroy()
