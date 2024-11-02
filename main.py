@@ -37,11 +37,11 @@ number_thread = threading.Thread(target=staller)
 number_thread.start()
 
 while is_on:
-    if state.getAngleDegrees() > 1:
+    if state.getAngleDegrees() > 0.6:
         print("burst left")
         leftMotor.set_motor_speed(75)
         rightMotor.set_motor_speed(50)
-    elif state.getAngleDegrees() < -1:
+    elif state.getAngleDegrees() < -0.6:
         print("burst right")
         leftMotor.set_motor_speed(50)
         rightMotor.set_motor_speed(75)
