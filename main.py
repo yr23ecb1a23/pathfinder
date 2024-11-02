@@ -7,7 +7,7 @@ test.someRandomTest()
 if module_path not in sys.path:
     sys.path.append(module_path)
 
-from pathfinder_mod import *
+#from pathfinder_mod import *
 
 
-print(cpp_addFloat(102,123))
+#print(cpp_addFloat(102,123))
