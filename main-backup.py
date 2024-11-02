@@ -72,7 +72,7 @@ class SLAM:
         self.left_motor = Motor(17, 27, 22)   # Left motor GPIO pins
 
         # Initialize the ultrasonic sensor
-        self.sensor = UltrasonicSensor(TRIG=23, ECHO=24)
+        self.sensor = UltrasonicSensor(TRIG=4, ECHO=5)
 
     def move_forward(self):
         self.right_motor.move_forward()
