@@ -12,11 +12,14 @@ def calculateError(mpu):
     c = 0
     AccErrorX = 0
     AccErrorY = 0
+    AbsAccErrorX = 0
     while c < 200:
         AccX, AccZ, AccY = mpu.acceleration
+        AbsAccErrorX += AccX
         AccErrorX += (math.atan(AccY / math.sqrt(AccX ** 2 + AccZ ** 2)) * 180 / math.pi)
         AccErrorY += (math.atan(-1 * (AccX) / math.sqrt(pow((AccY), 2) + pow((AccZ), 2))) * 180 / math.pi)
         c += 1
+    AbsAccErrorX = AbsAccErrorX / 200
     AccErrorX = AccErrorX / 200
     AccErrorY = AccErrorY / 200
     c = 0
@@ -33,14 +36,14 @@ def calculateError(mpu):
     GyroErrorX = GyroErrorX / 200
     GyroErrorY = GyroErrorY / 200
     GyroErrorZ = GyroErrorZ / 200
-    return AccErrorX, AccErrorY, GyroErrorX, GyroErrorY, GyroErrorZ
+    return AbsAccErrorX, AccErrorX, AccErrorY, GyroErrorX, GyroErrorY, GyroErrorZ
 
 
 class RobotState:
     def __init__(self):
         i2c = busio.I2C(board.SCL, board.SDA)
         self.mpu = adafruit_mpu6050.MPU6050(i2c)
-        self.AccErrorX, self.AccErrorY, self.GyroErrorX, self.GyroErrorY, self.GyroErrorZ = calculateError(self.mpu)
+        self.AbsAccErrorX, self.AccErrorX, self.AccErrorY, self.GyroErrorX, self.GyroErrorY, self.GyroErrorZ = calculateError(self.mpu)
         self._runningState = True
         self._angle = 0
         self._distance = 0
@@ -63,7 +66,7 @@ class RobotState:
             GyroX -= self.GyroErrorX
             GyroY -= self.GyroErrorY
             GyroZ -= self.GyroErrorZ
-            AccX -= self.AccErrorX
+            AccX -= self.AbsAccErrorX
             self._speed = self._prev_speed + (AccX * elapsedTime)
             self._absolute_disp = (self._prev_speed*elapsedTime) + (AccX * (elapsedTime**2)/2)
             print(self._absolute_disp, "metres")
