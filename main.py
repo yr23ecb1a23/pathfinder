@@ -16,10 +16,14 @@ if module_path not in sys.path:
 
 is_on = True
 
+
 def staller():
     global is_on
+    is_on = True
+    print("inside")
     sleep(0.6)
     is_on = False
+
 
 rightMotor = motor.Motor(24, 23, 25, 100, 0)  # left motor
 leftMotor = motor.Motor(17, 27, 22, 100, 0)
@@ -35,7 +39,6 @@ leftMotor.set_motor_speed(50)
 inp = True
 while inp:
     number_thread = threading.Thread(target=staller)
-    is_on = True
     number_thread.start()
     while is_on:
         if state.getAngleDegrees() > 0.2:
