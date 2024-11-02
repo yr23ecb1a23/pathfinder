@@ -18,7 +18,7 @@ is_on = True
 
 def staller():
     global is_on
-    sleep(0.5)
+    sleep(1)
     is_on = False
 
 rightMotor = motor.Motor(24, 23, 25, 100, 0)  # left motor
