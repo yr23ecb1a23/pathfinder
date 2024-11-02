@@ -17,6 +17,7 @@ if module_path not in sys.path:
 is_on = True
 
 def staller():
+    global is_on
     sleep(2)
     is_on = False
 
