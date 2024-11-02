@@ -8,6 +8,7 @@ import busio
 import adafruit_mpu6050
 import math
 
+
 def calculateError(mpu):
     c = 0
     AccErrorX = 0
@@ -36,6 +37,7 @@ def calculateError(mpu):
     GyroErrorX = GyroErrorX / 200
     GyroErrorY = GyroErrorY / 200
     GyroErrorZ = GyroErrorZ / 200
+    print(AbsAccErrorX, AccErrorX, AccErrorY,   GyroErrorX, GyroErrorY, GyroErrorZ)
     return AbsAccErrorX, AccErrorX, AccErrorY, GyroErrorX, GyroErrorY, GyroErrorZ
 
 
@@ -43,7 +45,8 @@ class RobotState:
     def __init__(self):
         i2c = busio.I2C(board.SCL, board.SDA)
         self.mpu = adafruit_mpu6050.MPU6050(i2c)
-        self.AbsAccErrorX, self.AccErrorX, self.AccErrorY, self.GyroErrorX, self.GyroErrorY, self.GyroErrorZ = calculateError(self.mpu)
+        self.AbsAccErrorX, self.AccErrorX, self.AccErrorY, self.GyroErrorX, self.GyroErrorY, self.GyroErrorZ = calculateError(
+            self.mpu)
         self._runningState = True
         self._angle = 0
         self._distance = 0
@@ -68,8 +71,8 @@ class RobotState:
             GyroZ -= self.GyroErrorZ
             AccX -= self.AbsAccErrorX
             self._speed = self._prev_speed + (AccX * elapsedTime)
-            self._absolute_disp += (self._prev_speed*elapsedTime) + (AccX * (elapsedTime**2)/2)
-            print(self._absolute_disp, "metres", AccX, AccY, AccZ, self.AbsAccErrorX)
+            self._absolute_disp += (self._prev_speed * elapsedTime) + (AccX * (elapsedTime ** 2) / 2)
+            #print(self._absolute_disp, "metres", AccX, AccY, AccZ, self.AbsAccErrorX)
             accAngleX = (math.atan(AccY / math.sqrt(AccX ** 2 + AccZ ** 2)) * 180 / math.pi) - self.AccErrorX
             accAngleY = (math.atan(-AccX / math.sqrt(AccY ** 2 + AccZ ** 2)) * 180 / math.pi) - self.AccErrorY
             gyroAngleZ += GyroZ * elapsedTime
