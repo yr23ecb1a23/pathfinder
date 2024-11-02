@@ -15,12 +15,12 @@ if module_path not in sys.path:
 
 rightMotor = motor.Motor(24, 23, 25, 100, 0)  # left motor
 leftMotor = motor.Motor(17, 27, 22, 100, 0)
-
+state = robot_state.RobotState()
 rightMotor.move_forward()
 rightMotor.set_motor_speed(50)
 leftMotor.move_forward()
 leftMotor.set_motor_speed(50)
-state = robot_state.RobotState()
+
 # for i in range(10):
 #     print(state.getAngleDegrees())
 #     sleep(0.34)
