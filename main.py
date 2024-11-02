@@ -56,5 +56,6 @@ while inp:
     if a == 1:
         pass
     else:
+        print("exiting")
         inp = False
 state.destroy()
