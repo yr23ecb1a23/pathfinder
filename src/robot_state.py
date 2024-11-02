@@ -83,3 +83,7 @@ class RobotState:
     def getAngle(self):
         with self._lock:
             return self._angle
+
+    def getAngleDegrees(self):
+        with self._lock:
+            return self._angle * 180 / math.pi

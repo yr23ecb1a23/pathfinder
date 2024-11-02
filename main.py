@@ -15,7 +15,7 @@ if module_path not in sys.path:
 
 state = robot_state.RobotState()
 for i in range(10):
-    print(state.getAngle())
+    print(state.getAngleDegrees())
     sleep(0.34)
 
 
