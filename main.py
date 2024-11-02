@@ -44,7 +44,7 @@ while inp:
     number_thread.start()
     while is_on:
         angle = state.getAngleDegrees()
-        print(angle)
+        print(angle, state.getDisp())
         if angle > 0.17:
             #print("burst left")
             leftMotor.set_motor_speed(100-40)

@@ -37,7 +37,7 @@ def calculateError(mpu):
     GyroErrorX = GyroErrorX / 200
     GyroErrorY = GyroErrorY / 200
     GyroErrorZ = GyroErrorZ / 200
-    print(AbsAccErrorX, AccErrorX, AccErrorY,   GyroErrorX, GyroErrorY, GyroErrorZ)
+    print(AbsAccErrorX, AccErrorX, AccErrorY, GyroErrorX, GyroErrorY, GyroErrorZ)
     return AbsAccErrorX, AccErrorX, AccErrorY, GyroErrorX, GyroErrorY, GyroErrorZ
 
 
@@ -97,3 +97,6 @@ class RobotState:
     def getAngleDegrees(self):
         with self._lock:
             return self._angle * 180 / math.pi
+
+    def getDisp(self):
+        return self._absolute_disp
