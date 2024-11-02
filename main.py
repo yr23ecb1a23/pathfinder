@@ -13,17 +13,19 @@ if module_path not in sys.path:
 
 #print(cpp_addFloat(102,123))
 
-motor1 = motor.Motor(24, 23, 25, 100, 0)  # left motor
-motor2 = motor.Motor(17, 27, 22, 100, 0)
+rightMotor = motor.Motor(24, 23, 25, 100, 0)  # left motor
+leftMotor = motor.Motor(17, 27, 22, 100, 0)
 
-motor1.move_forward()
-motor1.set_motor_speed(50)
-
+rightMotor.move_forward()
+rightMotor.set_motor_speed(50)
+leftMotor.move_forward()
+leftMotor.set_motor_speed(100)
 state = robot_state.RobotState()
 # for i in range(10):
 #     print(state.getAngleDegrees())
 #     sleep(0.34)
 
 sleep(20)
-motor1.stop_motor()
+rightMotor.stop_motor()
+leftMotor.stop_motor()
 state.destroy()
