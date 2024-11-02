@@ -43,12 +43,14 @@ while inp:
     rightMotor.move_forward()
     number_thread.start()
     while is_on:
-        if state.getAngleDegrees() > 0.17:
-            print("burst left")
+        angle = state.getAngleDegrees()
+        print(angle)
+        if angle > 0.17:
+            #print("burst left")
             leftMotor.set_motor_speed(100)
             rightMotor.set_motor_speed(50)
-        elif state.getAngleDegrees() < -0.17:
-            print("burst right")
+        elif angle < -0.17:
+            #print("burst right")
             leftMotor.set_motor_speed(50)
             rightMotor.set_motor_speed(100)
         else:
