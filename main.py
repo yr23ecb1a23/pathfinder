@@ -18,5 +18,5 @@ for i in range(10):
     print(state.getAngleDegrees())
     sleep(0.34)
 
-
+sleep(20)
 state.destroy()

@@ -8,9 +8,6 @@ import busio
 import adafruit_mpu6050
 import math
 
-
-
-
 def calculateError(mpu):
     c = 0
     AccErrorX = 0
@@ -50,6 +47,9 @@ class RobotState:
         self._lock = threading.Lock()
         self._thread = threading.Thread(target=self._state_updater)
         self._thread.start()
+        self._prev_speed = 0
+        self._speed = 0
+        self._absolute_disp = 0
 
     def _state_updater(self):
         accAngleZ, accAngleX, gyroAngleX, gyroAngleY, gyroAngleZ = 0, 0, 0, 0, 0
@@ -63,6 +63,10 @@ class RobotState:
             GyroX -= self.GyroErrorX
             GyroY -= self.GyroErrorY
             GyroZ -= self.GyroErrorZ
+            AccX -= self.AccErrorX
+            self._speed = self._prev_speed = (AccX * elapsedTime)
+            self._absolute_disp += (self._prev_speed*elapsedTime) + (AccX * (elapsedTime**2)/2)
+            print(self._absolute_disp, "metres")
             accAngleX = (math.atan(AccY / math.sqrt(AccX ** 2 + AccZ ** 2)) * 180 / math.pi) - self.AccErrorX
             accAngleY = (math.atan(-AccX / math.sqrt(AccY ** 2 + AccZ ** 2)) * 180 / math.pi) - self.AccErrorY
             gyroAngleZ += GyroZ * elapsedTime
@@ -70,9 +74,9 @@ class RobotState:
             yaw += GyroY * elapsedTime
             roll = 0.96 * gyroAngleZ + 0.04 * accAngleZ
             pitch = 0.96 * gyroAngleX + 0.04 * accAngleX
+            self._prev_speed = self._speed
             with self._lock:
                 self._angle = roll
-            # print(self._angle * 180 / math.pi, (pitch * 180) / math.pi, "running with full speed")
             previous_time = current_time
 
     def destroy(self):
