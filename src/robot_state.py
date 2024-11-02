@@ -68,7 +68,7 @@ class RobotState:
             GyroZ -= self.GyroErrorZ
             AccX -= self.AbsAccErrorX
             self._speed = self._prev_speed + (AccX * elapsedTime)
-            self._absolute_disp = (self._prev_speed*elapsedTime) + (AccX * (elapsedTime**2)/2)
+            self._absolute_disp += (self._prev_speed*elapsedTime) + (AccX * (elapsedTime**2)/2)
             print(self._absolute_disp, "metres")
             accAngleX = (math.atan(AccY / math.sqrt(AccX ** 2 + AccZ ** 2)) * 180 / math.pi) - self.AccErrorX
             accAngleY = (math.atan(-AccX / math.sqrt(AccY ** 2 + AccZ ** 2)) * 180 / math.pi) - self.AccErrorY
