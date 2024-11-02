@@ -39,6 +39,8 @@ leftMotor.set_motor_speed(50)
 inp = True
 while inp:
     number_thread = threading.Thread(target=staller)
+    leftMotor.move_forward()
+    rightMotor.move_forward()
     number_thread.start()
     while is_on:
         if state.getAngleDegrees() > 0.2:
