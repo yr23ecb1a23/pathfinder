@@ -31,7 +31,7 @@ leftMotor.set_motor_speed(50)
 # for i in range(10):
 #     print(state.getAngleDegrees())
 #     sleep(0.34)
-number_thread = threading.Thread(target=staller)
+number_thread = threading.Thread(target=staller())
 
 number_thread.start()
 
@@ -49,7 +49,6 @@ while is_on:
         leftMotor.set_motor_speed(50)
 
 number_thread.join()
-sleep(20)
 rightMotor.stop_motor()
 leftMotor.stop_motor()
 state.destroy()
