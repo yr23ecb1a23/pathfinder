@@ -17,7 +17,7 @@ motor1 = motor.Motor(24, 23, 25, 100, 0)  # left motor
 motor2 = motor.Motor(17, 27, 22, 100, 0)
 
 motor1.move_forward()
-
+motor1.set_motor_speed(50)
 
 state = robot_state.RobotState()
 # for i in range(10):
