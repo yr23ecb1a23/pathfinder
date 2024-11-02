@@ -71,7 +71,7 @@ class RobotState:
             roll = 0.96 * gyroAngleZ + 0.04 * accAngleZ
             pitch = 0.96 * gyroAngleX + 0.04 * accAngleX
             self.angle = roll
-            #print(self.angle * 180 / math.pi, (pitch * 180) / math.pi)
+            print(self.angle * 180 / math.pi, (pitch * 180) / math.pi, "running with full speed")
             previous_time = current_time
 
     def destroy(self):
