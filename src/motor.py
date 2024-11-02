@@ -1,4 +1,4 @@
-
+import RPi.GPIO as GPIO
 class Motor:
     def __init__(self, inlet1, inlet2, enable, digital_frequency, speed_offset):
         self.inlet1 = inlet1
