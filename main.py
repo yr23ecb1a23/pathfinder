@@ -108,7 +108,7 @@ obstacle_detection_thread = threading.Thread(target=ultrasonic_thread)
 obstacle_detection_thread.start()
 
 iterations = 0
-
+u_turn_done = False
 inp = True
 while inp:
     number_thread = threading.Thread(target=staller)
@@ -142,31 +142,36 @@ while inp:
     iterations += 1
     sleep(1)
     if iterations > current_destination-1:
-        print("exiting")
+        leftMotor.set_motor_speed(100)
+        rightMotor.set_motor_speed(70)
+        leftMotor.move_reverse()
+        rightMotor.move_forward()
+        sleep(0.4)
+        if u_turn_done:
+            leftMotor.stop_motor()
+            rightMotor.stop_motor()
+            break
+        while not u_turn_done:
+            angle = state.getAngleDegrees()
+            print(angle)
+            if angle < 176:
+                leftMotor.move_reverse()
+                rightMotor.move_forward()
+            elif angle > 186:
+                leftMotor.move_forward()
+                rightMotor.move_reverse()
+            else:
+                break
+        u_turn_done = True
+        iterations = -1
+        print("initiating back")
         inp = False
         break
     else:
         inp = True
         is_on = True
 
-u_turn_done = False
-# u turn
-leftMotor.set_motor_speed(100)
-rightMotor.set_motor_speed(70)
-leftMotor.move_reverse()
-rightMotor.move_forward()
-sleep(0.4)
-while not u_turn_done:
-    angle = state.getAngleDegrees()
-    print(angle)
-    if angle < 176:
-        leftMotor.move_reverse()
-        rightMotor.move_forward()
-    elif angle > 186:
-        leftMotor.move_forward()
-        rightMotor.move_reverse()
-    else:
-        break
+
 inp = True
 state.resetAngle()
 while inp:
