@@ -57,6 +57,8 @@ def ultrasonic_thread():
         else:
             is_path_blocked = False
 
+        print(is_path_blocked)
+
 
 rightMotor = motor.Motor(24, 23, 25, 100, 0)  # left motor
 leftMotor = motor.Motor(17, 27, 22, 100, 0)
