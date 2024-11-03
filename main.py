@@ -23,7 +23,7 @@ is_path_blocked = False
 def staller():
     global is_on
     is_on = True
-    for i in range(0, 300):
+    for i in range(0, 160):
         while is_path_blocked:
             pass
         is_on = True
@@ -110,7 +110,7 @@ while inp:
     leftMotor.stop_motor()
     iterations += 1
     sleep(1)
-    if iterations > 0:
+    if iterations > 2:
         print("exiting")
         inp = False
         break
