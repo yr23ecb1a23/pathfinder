@@ -79,7 +79,7 @@ obstacle_detection_thread.start()
 iterations = 0
 
 inp = True
-while inp:
+while False:
     number_thread = threading.Thread(target=staller)
     leftMotor.move_forward()
     rightMotor.move_forward()
@@ -120,14 +120,22 @@ while inp:
 
 u_turn_done = False
 
-
-
 leftMotor.set_motor_speed(100)
-rightMotor.set_motor_speed(50)
+rightMotor.set_motor_speed(70)
 leftMotor.move_reverse()
 rightMotor.move_forward()
+sleep(0.4)
+while not u_turn_done:
+    angle = state.getAngleDegrees()
+    if angle > -176:
+        leftMotor.move_reverse()
+        rightMotor.move_forward()
+    elif angle < -186:
+        leftMotor.move_forward()
+        rightMotor.move_reverse()
+    else:
+        break
 
-sleep(3)
 
 is_thread_on = False
 obstacle_detection_thread.join()
