@@ -71,7 +71,7 @@ def ultrasonic_thread():
             with us_lock:
                 is_path_blocked = False
 
-        print(is_path_blocked)
+        # print(is_path_blocked)
 
 current_destination = -1
 def poll_backend(url):
@@ -158,6 +158,7 @@ rightMotor.move_forward()
 sleep(0.4)
 while not u_turn_done:
     angle = state.getAngleDegrees()
+    print(angle)
     if angle < 176:
         leftMotor.move_reverse()
         rightMotor.move_forward()
@@ -166,7 +167,7 @@ while not u_turn_done:
         rightMotor.move_reverse()
     else:
         break
-
+inp = True
 while inp:
     number_thread = threading.Thread(target=staller)
     leftMotor.move_forward()
