@@ -162,51 +162,10 @@ while inp:
                 rightMotor.move_reverse()
             else:
                 break
+        state.resetAngle()
         u_turn_done = True
         iterations = -1
         print("initiating back")
-        inp = False
-        break
-    else:
-        inp = True
-        is_on = True
-
-
-inp = True
-state.resetAngle()
-while inp:
-    number_thread = threading.Thread(target=staller)
-    leftMotor.move_forward()
-    rightMotor.move_forward()
-    number_thread.start()
-
-    while is_on:
-        angle = state.getAngleDegrees()
-        print(angle)
-        if angle > 0.17:
-            leftMotor.set_motor_speed(100 - 20)
-            rightMotor.set_motor_speed(50 - 20)
-        elif angle < -0.17:
-            leftMotor.set_motor_speed(50 - 20)
-            rightMotor.set_motor_speed(100 - 20)
-        else:
-            rightMotor.set_motor_speed(50)
-            leftMotor.set_motor_speed(50)
-        with us_lock:
-            if is_path_blocked:
-                rightMotor.stop_motor()
-                leftMotor.stop_motor()
-                sleep(0.2)
-            else:
-                rightMotor.move_forward()
-                leftMotor.move_forward()
-    number_thread.join()
-    rightMotor.stop_motor()
-    leftMotor.stop_motor()
-    iterations += 1
-    sleep(1)
-    if iterations > current_destination-1:
-        print("exiting")
         inp = False
         break
     else:
