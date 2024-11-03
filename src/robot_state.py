@@ -98,5 +98,9 @@ class RobotState:
         with self._lock:
             return self._angle * 180 / math.pi
 
+    def resetAngle(self):
+        with self._lock:
+            self._angle = 0
+
     def getDisp(self):
         return self._absolute_disp

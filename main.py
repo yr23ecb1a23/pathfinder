@@ -168,6 +168,7 @@ while not u_turn_done:
     else:
         break
 inp = True
+state.resetAngle()
 while inp:
     number_thread = threading.Thread(target=staller)
     leftMotor.move_forward()
