@@ -31,7 +31,7 @@ def staller():
     is_on = False
 
 
-
+us_lock = threading.Lock()
 def ultrasonic_thread():
     while is_thread_on:
         global is_path_blocked
@@ -56,9 +56,11 @@ def ultrasonic_thread():
         distance = (time_elapsed * 34300) / 2  # Distance in cm
 
         if distance < 20:
-            is_path_blocked = True
+            with us_lock:
+                is_path_blocked = True
         else:
-            is_path_blocked = False
+            with us_lock:
+                is_path_blocked = False
 
         print(is_path_blocked)
 
@@ -95,14 +97,14 @@ while inp:
         else:
             rightMotor.set_motor_speed(50)
             leftMotor.set_motor_speed(50)
-
-        if is_path_blocked:
-            rightMotor.stop_motor()
-            leftMotor.stop_motor()
-            sleep(0.2)
-        else:
-            rightMotor.move_forward()
-            leftMotor.move_forward()
+        with us_lock:
+            if is_path_blocked:
+                rightMotor.stop_motor()
+                leftMotor.stop_motor()
+                sleep(0.2)
+            else:
+                rightMotor.move_forward()
+                leftMotor.move_forward()
     number_thread.join()
     rightMotor.stop_motor()
     leftMotor.stop_motor()
