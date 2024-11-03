@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Setter</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 300px; margin: auto; padding: 20px; }
+        button { margin: 5px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Set Destination</h1>
+    <button onclick="setDestination(1)">Set Destination 1</button>
+    <button onclick="setDestination(2)">Set Destination 2</button>
+    <button onclick="setDestination(3)">Set Destination 3</button>
+    <button onclick="setDestination(4)">Set Destination 4</button>
+
+    <h2>Current Destination</h2>
+    <div id="current-destination">-1</div>
+</div>
+
+<script>
+    function setDestination(destination) {
+        fetch('/set_destination', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ destination: destination })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                getDestination(); // Refresh the displayed destination
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    function getDestination() {
+        fetch('/get_destination')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('current-destination').innerText = data.current_destination;
+            });
+    }
+
+    // Poll for the current destination every second
+    setInterval(getDestination, 1000);
+</script>
+</body>
+</html>
