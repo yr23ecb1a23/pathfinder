@@ -15,8 +15,6 @@ GPIO.setup(ECHO, GPIO.IN)
 try:
     while True:
         # Set TRIG to LOW
-        GPIO.output(TRIG, False)
-        time.sleep(2)
 
         # Set TRIG to HIGH for 10 microseconds
         GPIO.output(TRIG, True)
