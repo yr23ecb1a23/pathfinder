@@ -22,7 +22,7 @@ GPIO.setup(ECHO, GPIO.IN)
 is_path_blocked = False
 def staller():
     global is_on
-    for i in range(0, 160):
+    for i in range(0, 1600):
         is_on = True
         sleep(0.01)
     is_on = False
