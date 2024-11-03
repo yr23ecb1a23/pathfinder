@@ -142,8 +142,8 @@ while inp:
     iterations += 1
     sleep(1)
     if iterations > current_destination-1:
-        leftMotor.set_motor_speed(100)
-        rightMotor.set_motor_speed(70)
+        leftMotor.set_motor_speed(100-50)
+        rightMotor.set_motor_speed(70-50)
         leftMotor.move_reverse()
         rightMotor.move_forward()
         sleep(0.4)
@@ -168,8 +168,8 @@ while inp:
         u_turn_done = True
         iterations = -1
         print("initiating back")
-        inp = False
-        break
+        inp = True
+        is_on = True
     else:
         inp = True
         is_on = True
