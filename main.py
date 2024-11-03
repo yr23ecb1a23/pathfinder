@@ -3,8 +3,6 @@ import os
 import sys
 import threading
 from time import sleep
-import cv2
-import numpy as np
 
 module_path = os.path.abspath("./build")
 test.someRandomTest()
@@ -13,15 +11,6 @@ if module_path not in sys.path:
 
 is_on = True
 
-# Initialize camera
-cap = cv2.VideoCapture(0)  # Change 0 to the appropriate camera index if necessary
-
-# Feature detector
-orb = cv2.ORB_create()
-
-# Define variables for visual odometry
-prev_kp, prev_des = None, None
-current_position = np.array([0.0, 0.0])  # Initialize position
 
 
 def staller():
@@ -69,9 +58,11 @@ while inp:
     iterations += 1
     sleep(0.1)
     if iterations > 3:
+        inp = True
+        is_on = True
         pass
     else:
         print("exiting")
         inp = False
+
 state.destroy()
-# pomafdspogpofas
