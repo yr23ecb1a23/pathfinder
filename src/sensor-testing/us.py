@@ -35,7 +35,7 @@ try:
         time_elapsed = stop_time - start_time
         distance = (time_elapsed * 34300) / 2  # Distance in cm
 
-        print(f"Distance: {distance:.2f} cm")
+        print(f"Distance: {distance:.2f} cm", end='\r')
 
 except KeyboardInterrupt:
     print("Measurement stopped by User")
