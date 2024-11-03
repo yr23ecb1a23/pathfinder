@@ -87,7 +87,7 @@ while inp:
 
     while is_on:
         angle = state.getAngleDegrees()
-
+        print(angle)
         if angle > 0.17:
             leftMotor.set_motor_speed(100-20)
             rightMotor.set_motor_speed(50-20)
@@ -117,6 +117,10 @@ while inp:
     else:
         inp = True
         is_on = True
+
+u_turn_done = False
+
+
 
 leftMotor.set_motor_speed(100)
 rightMotor.set_motor_speed(50)
