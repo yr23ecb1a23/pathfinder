@@ -118,8 +118,8 @@ while inp:
     rightMotor.move_forward()
     number_thread.start()
     if u_turn_done:
-        delta = 181
-        delta2 = 179
+        delta = 180.5
+        delta2 = 179.5
     while is_on:
         angle = state.getAngleDegrees()
         print(angle)
@@ -173,7 +173,7 @@ while inp:
         rightMotor.move_forward()
         state.resetAngle()
         u_turn_done = True
-        iterations = -1
+        iterations = 0
         print("initiating back")
         inp = True
         is_on = True
