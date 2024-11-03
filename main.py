@@ -23,12 +23,14 @@ orb = cv2.ORB_create()
 prev_kp, prev_des = None, None
 current_position = np.array([0.0, 0.0])  # Initialize position
 
+
 def staller():
     global is_on
     is_on = True
     print("inside")
     sleep(1.6)
     is_on = False
+
 
 rightMotor = motor.Motor(24, 23, 25, 100, 0)  # left motor
 leftMotor = motor.Motor(17, 27, 22, 100, 0)
@@ -37,6 +39,8 @@ rightMotor.move_forward()
 rightMotor.set_motor_speed(50)
 leftMotor.move_forward()
 leftMotor.set_motor_speed(50)
+
+iterations = 0
 
 inp = True
 while inp:
@@ -49,11 +53,11 @@ while inp:
         angle = state.getAngleDegrees()
         print(angle, state.getDisp())
         if angle > 0.17:
-            leftMotor.set_motor_speed(100-40)
-            rightMotor.set_motor_speed(50-40)
+            leftMotor.set_motor_speed(100 - 40)
+            rightMotor.set_motor_speed(50 - 40)
         elif angle < -0.17:
-            leftMotor.set_motor_speed(50-40)
-            rightMotor.set_motor_speed(100-40)
+            leftMotor.set_motor_speed(50 - 40)
+            rightMotor.set_motor_speed(100 - 40)
         else:
             rightMotor.set_motor_speed(50)
             leftMotor.set_motor_speed(50)
@@ -62,7 +66,9 @@ while inp:
     rightMotor.stop_motor()
     leftMotor.stop_motor()
     a = int(input())
-    if a == 1:
+    iterations += 1
+    sleep(0.1)
+    if iterations > 3:
         pass
     else:
         print("exiting")
