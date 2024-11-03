@@ -54,7 +54,6 @@ while inp:
     number_thread.join()
     rightMotor.stop_motor()
     leftMotor.stop_motor()
-    a = int(input())
     iterations += 1
     sleep(0.1)
     if iterations > 3:
