@@ -118,7 +118,7 @@ while inp:
         inp = True
         is_on = True
 
-leftMotor.set_motor_speed(50)
+leftMotor.set_motor_speed(100)
 rightMotor.set_motor_speed(50)
 leftMotor.move_reverse()
 rightMotor.move_forward()
