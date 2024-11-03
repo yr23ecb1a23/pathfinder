@@ -147,7 +147,7 @@ while inp:
     iterations += 1
     sleep(1)
     if iterations > current_destination-1:
-        while True:
+        while not u_turn_done:
             try:
                 response = requests.get(delivery_url)
                 data = response.json()
