@@ -113,6 +113,7 @@ while inp:
     if iterations > 0:
         print("exiting")
         inp = False
+        break
     else:
         inp = True
         is_on = True
