@@ -46,41 +46,6 @@ while inp:
     number_thread.start()
 
     while is_on:
-        # Read a frame from the camera
-        ret, frame = cap.read()
-        if not ret:
-            print("Failed to capture image")
-            break
-
-        # Convert to grayscale
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-        # Detect features
-        kp, des = orb.detectAndCompute(gray, None)
-
-        if prev_kp is not None and prev_des is not None:
-            # Match features using BFMatcher
-            bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
-            matches = bf.match(prev_des, des)
-            matches = sorted(matches, key=lambda x: x.distance)
-
-            # Extract matched keypoints
-            prev_pts = np.float32([prev_kp[m.queryIdx].pt for m in matches]).reshape(-1, 2)
-            curr_pts = np.float32([kp[m.trainIdx].pt for m in matches]).reshape(-1, 2)
-
-            # Calculate the essential matrix and recover relative camera motion
-            E, mask = cv2.findEssentialMat(curr_pts, prev_pts, focal=1, pp=(0, 0))
-            points, R, t, mask = cv2.recoverPose(E, curr_pts, prev_pts)
-
-            # Update position based on translation
-            current_position += t.flatten()  # Simple update, consider scaling for real-world distance
-
-            print("Current Position:", current_position)
-
-        # Store current keypoints and descriptors
-        prev_kp, prev_des = kp, des
-
-        # Get angle and print information
         angle = state.getAngleDegrees()
         print(angle, state.getDisp())
         if angle > 0.17:
@@ -102,7 +67,5 @@ while inp:
     else:
         print("exiting")
         inp = False
-
-cap.release()  # Release camera
 state.destroy()
 # pomafdspogpofas
