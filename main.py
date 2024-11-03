@@ -42,11 +42,11 @@ while inp:
         angle = state.getAngleDegrees()
         print(angle, state.getDisp())
         if angle > 0.17:
-            leftMotor.set_motor_speed(100)
-            rightMotor.set_motor_speed(50)
+            leftMotor.set_motor_speed(100-20)
+            rightMotor.set_motor_speed(50-20)
         elif angle < -0.17:
-            leftMotor.set_motor_speed(50)
-            rightMotor.set_motor_speed(100)
+            leftMotor.set_motor_speed(50-20)
+            rightMotor.set_motor_speed(100-20)
         else:
             rightMotor.set_motor_speed(50)
             leftMotor.set_motor_speed(50)
@@ -56,7 +56,7 @@ while inp:
     leftMotor.stop_motor()
     iterations += 1
     sleep(0.2)
-    if iterations > 3:
+    if iterations > 2:
         print("exiting")
         inp = False
     else:
