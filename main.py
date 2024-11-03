@@ -93,6 +93,7 @@ def poll_backend(url):
             print(f"Error while polling: {e}")
             time.sleep(2)  # Wait a bit longer on error
 backend_url = 'http://localhost:5000/get_destination'  # Use localhost for local testing
+delivery_url = 'http://localhost:5000/get_delivery_done'
 poll_backend(backend_url)
 
 rightMotor = motor.Motor(24, 23, 25, 100, 0)  # left motor
@@ -146,7 +147,23 @@ while inp:
     iterations += 1
     sleep(1)
     if iterations > current_destination-1:
-        sleep(0.4)
+        while True:
+            try:
+                response = requests.get(delivery_url)
+                data = response.json()
+
+                is_delivery_done = data.get('delivery', False)
+                print(f"delivery done {is_delivery_done}")
+
+                if is_delivery_done == True:
+                    print("Delivery is done")
+                    break
+                print("Polling again")
+                time.sleep(1)  # Wait before polling again
+            except requests.exceptions.RequestException as e:
+                print(f"Error while polling: {e}")
+                time.sleep(2)  # Wait a bit longer on error
+        sleep(1)
         if u_turn_done:
             leftMotor.stop_motor()
             rightMotor.stop_motor()
