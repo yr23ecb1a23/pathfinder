@@ -110,19 +110,23 @@ obstacle_detection_thread.start()
 iterations = 0
 u_turn_done = False
 inp = True
+delta = 0.17
+delta2 = -0.17
 while inp:
     number_thread = threading.Thread(target=staller)
     leftMotor.move_forward()
     rightMotor.move_forward()
     number_thread.start()
-
+    if u_turn_done:
+        delta = 181
+        delta2 = 179
     while is_on:
         angle = state.getAngleDegrees()
         print(angle)
-        if angle > 0.17:
+        if angle > delta:
             leftMotor.set_motor_speed(100 - 20)
             rightMotor.set_motor_speed(50 - 20)
-        elif angle < -0.17:
+        elif angle < delta2:
             leftMotor.set_motor_speed(50 - 20)
             rightMotor.set_motor_speed(100 - 20)
         else:
