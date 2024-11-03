@@ -162,6 +162,8 @@ while inp:
                 rightMotor.move_reverse()
             else:
                 break
+        leftMotor.set_motor_speed(50)
+        rightMotor.set_motor_speed(50)
         leftMotor.move_forward()
         rightMotor.move_forward()
         state.resetAngle()
