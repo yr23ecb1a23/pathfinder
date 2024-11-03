@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify, send_from_directory
+import threading
 
 app = Flask(__name__)
 
 # Default destination
 current_destination = -1
+
 
 @app.route('/set_destination', methods=['POST'])
 def set_destination():
@@ -17,13 +19,26 @@ def set_destination():
     else:
         return jsonify({'message': 'Invalid destination. Choose between 1 and 4.'}), 400
 
+
 @app.route('/get_destination', methods=['GET'])
 def get_destination():
     return jsonify({'current_destination': current_destination}), 200
+
 
 @app.route('/')
 def serve_index():
     return send_from_directory('.', 'index.html')
 
-if __name__ == '__main__':
+
+def run_backend():
     app.run(host='0.0.0.0', port=5000)
+
+
+t = threading.Thread(target=run_backend)
+t.start()
+if __name__ == '__main__':
+    pass
+    # app.run(host='0.0.0.0', port=5000)
+while True:
+    print("HELLO WORLD")
+t.join()

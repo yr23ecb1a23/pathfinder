@@ -39,7 +39,8 @@ us_lock = threading.Lock()
 
 def backend_thread():
     backend.app.run(host='0.0.0.0', port=5000)
-
+backend_thread_obj = threading.Thread(target=backend_thread)
+backend_thread_obj.start()
 def ultrasonic_thread():
     while is_thread_on:
         global is_path_blocked
@@ -102,8 +103,7 @@ rightMotor.set_motor_speed(50)
 leftMotor.move_forward()
 leftMotor.set_motor_speed(50)
 
-backend_thread_obj = threading.Thread(target=backend_thread)
-backend_thread_obj.start()
+
 obstacle_detection_thread = threading.Thread(target=ultrasonic_thread)
 obstacle_detection_thread.start()
 
