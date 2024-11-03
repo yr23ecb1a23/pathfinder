@@ -55,7 +55,7 @@ while inp:
     rightMotor.stop_motor()
     leftMotor.stop_motor()
     iterations += 1
-    sleep(0.1)
+    sleep(1)
     if iterations > 3:
         print("exiting")
         inp = False
