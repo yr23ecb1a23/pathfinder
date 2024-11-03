@@ -57,11 +57,10 @@ while inp:
     iterations += 1
     sleep(0.1)
     if iterations > 3:
-        inp = True
-        is_on = True
-        pass
-    else:
         print("exiting")
         inp = False
+    else:
+        inp = True
+        is_on = True
 
 state.destroy()
