@@ -12,60 +12,32 @@
             margin: 5px;
             padding: 10px 15px;
             font-size: 16px;
-            background-color: #007bff;
+            background-color: #4CAF50; /* Green by default */
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
-        .visualise{
-            margin-top: 10px;
+        button:disabled {
+            background-color: #ccc; /* Gray when disabled */
+            cursor: not-allowed;
         }
-        button:hover { background-color: #0056b3; }
+        button:hover:not(:disabled) { background-color: #45a049; } /* Darker green on hover */
         h2 { font-size: 20px; margin-top: 20px; }
-        .line {
-            position: relative;
-            height: 10px;
-            background: #ccc;
-            margin-top: 50px;
-            margin-top: 50px;
-        }
-        .marker {
-            position: absolute;
-            bottom: 0;
-            width: 10px;
-            height: 10px;
-            background: #333;
-            border-radius: 50%;
-        }
-        .current-marker {
-            position: absolute;
-            bottom: 0;
-            width: 20px;
-            height: 20px;
-            background: red; /* Bigger dot for current destination */
-            border-radius: 50%;
-            transform: translate(-50%, 0); /* Center it */
-        }
+        .visualise { margin-top: 10px; }
+        .line { position: relative; height: 10px; background: #ccc; margin-top: 50px; }
+        .marker { position: absolute; bottom: 0; width: 10px; height: 10px; background: #333; border-radius: 50%; }
+        .current-marker { position: absolute; bottom: 0; width: 20px; height: 20px; background: red; border-radius: 50%; transform: translate(-50%, 0); }
         .marker1 { left: 0%; }
         .marker2 { left: 33%; }
         .marker3 { left: 66%; }
         .marker4 { left: 100%; }
-
-        .label {
-            position: absolute;
-            bottom: 25px; /* Position label above the markers */
-            font-size: 14px;
-        }
+        .label { position: absolute; bottom: 25px; font-size: 14px; }
         .label1 { left: 0%; transform: translateX(-50%); }
         .label2 { left: 33%; transform: translateX(-50%); }
         .label3 { left: 66%; transform: translateX(-50%); }
         .label4 { left: 100%; transform: translateX(-50%); }
-
-        #current-destination {
-            font-size: 18px;
-            font-weight: bold;
-        }
+        #current-destination { font-size: 18px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -75,6 +47,7 @@
     <button onclick="setDestination(2)">Set Destination 2</button>
     <button onclick="setDestination(3)">Set Destination 3</button>
     <button onclick="setDestination(4)">Set Destination 4</button>
+    <button id="delivery-button" onclick="deliveryDone()">Delivery Done?</button>
 
     <h2>Current Destination</h2>
     <div id="current-destination">Not Set</div>
@@ -97,6 +70,8 @@
 </div>
 
 <script>
+    let deliveryDonePressed = false; // Track if the button has been pressed
+
     function setDestination(destination) {
         fetch('/set_destination', {
             method: 'POST',
@@ -122,6 +97,7 @@
                 const currentDest = data.current_destination;
                 document.getElementById('current-destination').innerText = currentDest === -1 ? "Not Set" : currentDest;
                 updateCurrentMarker(currentDest);
+                checkDeliveryStatus(); // Check delivery status on every update
             });
     }
 
@@ -133,6 +109,46 @@
         } else {
             marker.style.left = '0%'; // Default position for invalid destination
         }
+    }
+
+    function checkDeliveryStatus() {
+        fetch('/get_delivery_done')
+            .then(response => response.json())
+            .then(data => {
+                const deliveryButton = document.getElementById('delivery-button');
+                if (data.delivery) {
+                    deliveryButton.style.backgroundColor = '#ccc'; // Gray if delivery done
+                    deliveryButton.disabled = true; // Disable the button
+                    deliveryButton.innerText = 'Delivery Done?'; // Keep the question mark
+                } else {
+                    deliveryButton.style.backgroundColor = '#4CAF50'; // Green if not done
+                    deliveryButton.disabled = false; // Enable the button
+                    deliveryButton.innerText = 'Delivery Done?'; // Keep the question mark
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    function deliveryDone() {
+        if (deliveryDonePressed) return; // Prevent multiple presses
+        fetch('/delivery_done', {
+            method: 'POST'
+        })
+            .then(response => {
+                if (response.ok) {
+                    deliveryDonePressed = true; // Mark button as pressed
+                    checkDeliveryStatus(); // Update button state
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     // Poll for the current destination every second
