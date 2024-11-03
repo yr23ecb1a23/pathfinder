@@ -36,5 +36,3 @@ def run_backend():
 if __name__ == '__main__':
     pass
     # app.run(host='0.0.0.0', port=5000)
-while True:
-    print("HELLO WORLD")
