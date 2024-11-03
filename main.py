@@ -142,15 +142,15 @@ while inp:
     iterations += 1
     sleep(1)
     if iterations > current_destination-1:
-        leftMotor.set_motor_speed(100-50)
-        rightMotor.set_motor_speed(70-50)
-        leftMotor.move_reverse()
-        rightMotor.move_forward()
         sleep(0.4)
         if u_turn_done:
             leftMotor.stop_motor()
             rightMotor.stop_motor()
             break
+        leftMotor.set_motor_speed(100-50)
+        rightMotor.set_motor_speed(70-50)
+        leftMotor.move_reverse()
+        rightMotor.move_forward()
         while not u_turn_done:
             angle = state.getAngleDegrees()
             print(angle)
