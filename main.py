@@ -96,6 +96,9 @@ while inp:
         if is_path_blocked:
             rightMotor.stop_motor()
             leftMotor.stop_motor()
+        else:
+            rightMotor.move_forward()
+            leftMotor.move_forward()
     number_thread.join()
     rightMotor.stop_motor()
     leftMotor.stop_motor()
