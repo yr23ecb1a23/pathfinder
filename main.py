@@ -23,7 +23,11 @@ is_path_blocked = False
 def staller():
     global is_on
     is_on = True
-    sleep(10)
+    for i in range(0, 1000):
+        while is_path_blocked:
+            pass
+        is_on = True
+        sleep(0.01)
     is_on = False
 
 
