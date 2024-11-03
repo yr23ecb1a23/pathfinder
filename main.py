@@ -110,13 +110,21 @@ while inp:
     leftMotor.stop_motor()
     iterations += 1
     sleep(1)
-    if iterations > 2:
+    if iterations > 0:
         print("exiting")
         inp = False
         break
     else:
         inp = True
         is_on = True
+
+leftMotor.set_motor_speed(50)
+rightMotor.set_motor_speed(50)
+leftMotor.move_reverse()
+rightMotor.move_forward()
+
+sleep(3)
+
 is_thread_on = False
 obstacle_detection_thread.join()
 state.destroy()
