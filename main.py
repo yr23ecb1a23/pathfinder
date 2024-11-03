@@ -162,6 +162,8 @@ while inp:
                 rightMotor.move_reverse()
             else:
                 break
+        leftMotor.move_forward()
+        rightMotor.move_forward()
         state.resetAngle()
         u_turn_done = True
         iterations = -1
