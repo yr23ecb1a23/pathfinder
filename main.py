@@ -22,6 +22,7 @@ GPIO.setup(ECHO, GPIO.IN)
 is_path_blocked = False
 def staller():
     global is_on
+    is_on = True
     for i in range(0, 1600):
         is_on = True
         sleep(0.01)
@@ -82,7 +83,7 @@ while inp:
 
     while is_on:
         angle = state.getAngleDegrees()
-        print(angle, state.getDisp())
+        #sprint(angle, state.getDisp())
 
 
         if angle > 0.17:
