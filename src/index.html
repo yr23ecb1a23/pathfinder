@@ -5,9 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Destination Setter</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        .container { max-width: 300px; margin: auto; padding: 20px; }
-        button { margin: 5px; }
+        body { font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333; }
+        .container { max-width: 300px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background: #fff; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        h1 { font-size: 24px; margin-bottom: 10px; }
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .visualise{
+            margin-top: 10px;
+        }
+        button:hover { background-color: #0056b3; }
+        h2 { font-size: 20px; margin-top: 20px; }
+        .line {
+            position: relative;
+            height: 10px;
+            background: #ccc;
+            margin-top: 50px;
+            margin-top: 50px;
+        }
+        .marker {
+            position: absolute;
+            bottom: 0;
+            width: 10px;
+            height: 10px;
+            background: #333;
+            border-radius: 50%;
+        }
+        .current-marker {
+            position: absolute;
+            bottom: 0;
+            width: 20px;
+            height: 20px;
+            background: red; /* Bigger dot for current destination */
+            border-radius: 50%;
+            transform: translate(-50%, 0); /* Center it */
+        }
+        .marker1 { left: 0%; }
+        .marker2 { left: 33%; }
+        .marker3 { left: 66%; }
+        .marker4 { left: 100%; }
+
+        .label {
+            position: absolute;
+            bottom: 25px; /* Position label above the markers */
+            font-size: 14px;
+        }
+        .label1 { left: 0%; transform: translateX(-50%); }
+        .label2 { left: 33%; transform: translateX(-50%); }
+        .label3 { left: 66%; transform: translateX(-50%); }
+        .label4 { left: 100%; transform: translateX(-50%); }
+
+        #current-destination {
+            font-size: 18px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -19,7 +77,23 @@
     <button onclick="setDestination(4)">Set Destination 4</button>
 
     <h2>Current Destination</h2>
-    <div id="current-destination">-1</div>
+    <div id="current-destination">Not Set</div>
+</div>
+
+<div class="container visualise">
+    <h2>Marker Visualization</h2>
+    <div class="line">
+        <div class="marker marker1" title="Destination 1"></div>
+        <div class="marker marker2" title="Destination 2"></div>
+        <div class="marker marker3" title="Destination 3"></div>
+        <div class="marker marker4" title="Destination 4"></div>
+        <div id="current-marker" class="current-marker" style="left: 0%;"></div>
+
+        <div class="label label1">1</div>
+        <div class="label label2">2</div>
+        <div class="label label3">3</div>
+        <div class="label label4">4</div>
+    </div>
 </div>
 
 <script>
@@ -45,8 +119,20 @@
         fetch('/get_destination')
             .then(response => response.json())
             .then(data => {
-                document.getElementById('current-destination').innerText = data.current_destination;
+                const currentDest = data.current_destination;
+                document.getElementById('current-destination').innerText = currentDest === -1 ? "Not Set" : currentDest;
+                updateCurrentMarker(currentDest);
             });
+    }
+
+    function updateCurrentMarker(destination) {
+        const marker = document.getElementById('current-marker');
+        if (destination >= 1 && destination <= 4) {
+            const positions = [0, 33, 66, 100];
+            marker.style.left = positions[destination - 1] + '%';
+        } else {
+            marker.style.left = '0%'; // Default position for invalid destination
+        }
     }
 
     // Poll for the current destination every second
