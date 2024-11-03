@@ -11,7 +11,7 @@ if module_path not in sys.path:
     sys.path.append(module_path)
 
 is_on = True
-
+is_thread_on = True
 TRIG = 4
 ECHO = 5
 
@@ -33,7 +33,7 @@ def staller():
 
 
 def ultrasonic_thread():
-    while True:
+    while is_thread_on:
         global is_path_blocked
 
         # Set TRIG to HIGH for 10 microseconds
@@ -114,5 +114,6 @@ while inp:
     else:
         inp = True
         is_on = True
+is_thread_on = False
 obstacle_detection_thread.join()
 state.destroy()
