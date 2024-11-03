@@ -83,7 +83,7 @@ while inp:
 
     while is_on:
         angle = state.getAngleDegrees()
-        #sprint(angle, state.getDisp())
+        #print(angle, state.getDisp())
 
 
         if angle > 0.17:
@@ -99,6 +99,7 @@ while inp:
         if is_path_blocked:
             rightMotor.stop_motor()
             leftMotor.stop_motor()
+            sleep(0.2)
         else:
             rightMotor.move_forward()
             leftMotor.move_forward()
