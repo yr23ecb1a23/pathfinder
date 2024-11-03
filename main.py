@@ -188,7 +188,6 @@ while inp:
         rightMotor.set_motor_speed(50)
         leftMotor.move_forward()
         rightMotor.move_forward()
-        state.resetAngle()
         u_turn_done = True
         iterations = 0
         print("initiating back")
