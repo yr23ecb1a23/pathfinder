@@ -66,6 +66,9 @@ rightMotor.set_motor_speed(50)
 leftMotor.move_forward()
 leftMotor.set_motor_speed(50)
 
+obstacle_detection_thread = threading.Thread(target=ultrasonic_thread)
+obstacle_detection_thread.start()
+
 iterations = 0
 
 inp = True
@@ -104,5 +107,5 @@ while inp:
     else:
         inp = True
         is_on = True
-
+obstacle_detection_thread.join()
 state.destroy()
